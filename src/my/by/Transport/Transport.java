@@ -1,10 +1,14 @@
+package my.by.Transport;
+
 public class Transport {
+    private String name;                  //название транспорта
     private double loadCapacity;          //грузоподъёмность
     private double transportationPrice;   //цена транспортировки за км
     private double speed;                 //скорость км/ч
-    private double passengers;            //количество пассажиров
+    private double passengers;            //максимальное количество пассажиров
 
-    public Transport(double loadCapacity, double transportationPrice, double speed, double passengers) {
+    public Transport(String name, double loadCapacity, double transportationPrice, double speed, double passengers) {
+        this.name = name;
         this.loadCapacity = loadCapacity;
         this.transportationPrice = transportationPrice;
         this.speed = speed;
@@ -45,10 +49,17 @@ public class Transport {
 
     @Override
     public String toString() {
-        return "Transport\n" +
-                "loadCapacity = " + loadCapacity +
-                ",\ntransportationPrice = " + transportationPrice +
-                ",\nspeed = " + speed +
-                ",\npassengers = " + passengers;
+        return "Name: " + name +
+                "\nMax load capacity = " + loadCapacity +
+                "\nPrice of transportation = " + transportationPrice +
+                "\nMax speed = " + speed +
+                "\nMax amount of passengers = " + passengers;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
     }
 }
