@@ -2,8 +2,8 @@ package my.by.Transport;
 
 public class Transport {
     private String name;                  //название транспорта
-    private double loadCapacity;          //грузоподъёмность
-    private double transportationPrice;   //цена транспортировки за км
+    private double loadCapacity;          //грузоподъёмность в тоннах
+    private double transportationPrice;   //цена транспортировки за км в долларах
     private double speed;                 //скорость км/ч
     private double passengers;            //максимальное количество пассажиров
 

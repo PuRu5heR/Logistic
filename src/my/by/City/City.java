@@ -4,8 +4,8 @@ public class City {
     private String name;
     private boolean hasAirport;                  //наличие аэропорта
     private boolean hasPort;                     //наличие порта
-    private double latitudePosition;             //координата города по latitudePosition
-    private double longitudePosition;            //координата города по longitudePosition
+    private double latitudePosition;             //координата города по широте
+    private double longitudePosition;            //координата города по долготе
 
     public City(String name, boolean hasAirport, boolean hasPort, double latitudePosition, double longitudePosition) {
         this.name = name;
