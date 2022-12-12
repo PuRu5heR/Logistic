@@ -1,4 +1,4 @@
-package my.by.City;
+package my.by.city;
 
 public class City {
     private String name;

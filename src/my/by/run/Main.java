@@ -1,8 +1,10 @@
-package my.by.Run;
+package my.by.run;
 
-import my.by.City.City;
-import my.by.Transport.Air.Airplane;
-import my.by.Transport.Ground.Track;
+import my.by.city.City;
+import my.by.transport.Air.Airplane;
+import my.by.transport.Ground.Track;
+import my.by.transport.Transport;
+import my.by.services.Services;
 
 public class Main {
     public static void main(String[] args){
@@ -35,5 +37,12 @@ public class Main {
 
         //фуры
         Track volvoFH16 = new Track("Volvo FH16 750",325, 22.68, 90, 0);
+
+        Transport[] bestTransports = Services.findingBestTransport(new Transport[]{boeing737Cargo, boeing747Cargo, volvoFH16}, 22, 0);
+        System.out.println("Самый быстрый: ");
+        System.out.println(bestTransports[0]);
+        System.out.println();
+        System.out.println("Самый дешёвый: ");
+        System.out.println(bestTransports[1]);
     }
 }

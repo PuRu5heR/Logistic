@@ -1,13 +1,13 @@
-package my.by.Transport;
+package my.by.transport;
 
 public class Transport {
     private String name;                  //название транспорта
     private double loadCapacity;          //грузоподъёмность в тоннах
     private double transportationPrice;   //цена транспортировки за км в долларах
     private double speed;                 //скорость км/ч
-    private double passengers;            //максимальное количество пассажиров
+    private int passengers;            //максимальное количество пассажиров
 
-    public Transport(String name, double loadCapacity, double transportationPrice, double speed, double passengers) {
+    public Transport(String name, double loadCapacity, double transportationPrice, double speed, int passengers) {
         this.name = name;
         this.loadCapacity = loadCapacity;
         this.transportationPrice = transportationPrice;
@@ -35,11 +35,11 @@ public class Transport {
         this.speed = speed;
     }
 
-    public double getPassengers() {
+    public int getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(double passengers) {
+    public void setPassengers(int passengers) {
         this.passengers = passengers;
     }
 
