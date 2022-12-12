@@ -38,7 +38,7 @@ public class Main {
         //фуры
         Track volvoFH16 = new Track("Volvo FH16 750",325, 22.68, 90, 0);
 
-        Transport[] bestTransports = Services.findingBestTransport(new Transport[]{boeing737Cargo, boeing747Cargo, volvoFH16}, 22, 0);
+        Transport[] bestTransports = Services.findingBestTransport(new Transport[]{boeing737Cargo, boeing747Cargo, volvoFH16}, 22, 0, minsk, grodno);
         System.out.println("Самый быстрый: ");
         System.out.println(bestTransports[0]);
         System.out.println();

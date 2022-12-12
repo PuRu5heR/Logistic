@@ -6,6 +6,9 @@ public class Transport {
     private double transportationPrice;   //цена транспортировки за км в долларах
     private double speed;                 //скорость км/ч
     private int passengers;            //максимальное количество пассажиров
+    private boolean isAir;
+    private boolean isWater;
+    private boolean isGround;
 
     public Transport(String name, double loadCapacity, double transportationPrice, double speed, int passengers) {
         this.name = name;
@@ -13,6 +16,9 @@ public class Transport {
         this.transportationPrice = transportationPrice;
         this.speed = speed;
         this.passengers = passengers;
+        this.isAir = false;
+        this.isWater = false;
+        this.isGround = false;
     }
 
     public void setLoadCapacity(double loadCapacity) {
@@ -61,5 +67,29 @@ public class Transport {
     }
     public String getName() {
         return name;
+    }
+
+    public boolean getAir() {
+        return isAir;
+    }
+
+    public void setAir(boolean air) {
+        isAir = air;
+    }
+
+    public boolean getWater() {
+        return isWater;
+    }
+
+    public void setWater(boolean water) {
+        isWater = water;
+    }
+
+    public boolean getGround() {
+        return isGround;
+    }
+
+    public void setGround(boolean ground) {
+        isGround = ground;
     }
 }

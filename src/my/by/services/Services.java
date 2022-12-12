@@ -1,5 +1,6 @@
 package my.by.services;
 
+import my.by.city.City;
 import my.by.transport.Transport;
 
 public class Services {
@@ -25,11 +26,27 @@ public class Services {
         return lowestPrice;
     }
 
-    public static Transport checkSpeed(Transport[] transports){                           //нахождение быстрого варианта
+    public static Transport checkSpeed(Transport[] transports, City departureCity, City arrivalCity){                           //нахождение быстрого варианта
         Transport fastest = transports[0];
-        for (Transport transport : transports){
-            if (transport.getSpeed() > fastest.getSpeed()){
-                fastest = transport;
+        int[] none = new int[transports.length];
+        for (int i = 0; i < transports.length; i++){
+            none[i] = -1;
+        }
+        if (distanceCount(departureCity, arrivalCity) <= 250){
+            for (int i = 0; i < transports.length; i++){
+                if (transports[i].getAir()){
+                    none[i] = i;
+                    continue;
+                }
+                fastest = transports[i];
+            }
+        }
+        for (int i = 0; i < transports.length; i++){
+            if (i == none[i]){
+                continue;
+            }
+            if (transports[i].getSpeed() > fastest.getSpeed()){
+                fastest = transports[i];
             }
         }
         return fastest;
@@ -47,10 +64,17 @@ public class Services {
         return checked;
     }
 
-    public static Transport[] findingBestTransport(Transport[] transports, double load, int passengers){  //нахождение лучших вариантов для перевозки
+    public static double distanceCount(City departureCity, City arrivalCity){
+        double kmToDegree = 111.134861111;
+        return Math.sqrt(Math.abs(departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition()) +
+                Math.abs(departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition())) * kmToDegree;
+    }
+
+    public static Transport[] findingBestTransport(Transport[] transports, double load, int passengers,
+                                                   City departureCity, City arrivalCity){  //нахождение лучших вариантов для перевозки
         Transport[] checkedLoad = checkLoadCapacity(transports, load);
         Transport[] checkedPassengers = checkPassengers(checkedLoad, passengers);
-        Transport fastestTransport = checkSpeed(checkedPassengers);
+        Transport fastestTransport = checkSpeed(checkedPassengers, departureCity, arrivalCity);
         Transport cheapestTransport = checkPrice(checkedPassengers);
         return new Transport[]{fastestTransport, cheapestTransport};
     }
