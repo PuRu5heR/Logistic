@@ -6,8 +6,12 @@ import my.by.transport.Ground.Track;
 import my.by.transport.Transport;
 import my.by.services.Services;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+
         //белорусские города
         City minsk = new City("Минск", true, false, 53.9, 27.5667);
         City vitebsk = new City("Витебск", true, false, 55.1904, 30.2049);
@@ -29,6 +33,9 @@ public class Main {
         City odessa = new City("Одесса", true, true, 46.48253, 30.72331);
         City lviv = new City("Львов", true, false, 49.8383, 24.0232);
 
+        City[] cities = {minsk, vitebsk, gomel, mogilev, grodno, brest, moscow, saintPetersburg, kaliningrad,
+        novosibirsk, ekatetinburg, vladivostok, kiev, odessa, lviv};
+
         //самолёты
         Airplane boeing737Passenger = new Airplane("Boeing 737-800", 1.5, 2526, 850, 186);
         Airplane boeing737Cargo = new Airplane("Boeing 737BCF", 23, 3000, 850, 0);
@@ -38,11 +45,43 @@ public class Main {
         //фуры
         Track volvoFH16 = new Track("Volvo FH16 750",325, 22.68, 90, 0);
 
-        Transport[] bestTransports = Services.findingBestTransport(new Transport[]{boeing737Cargo, boeing747Cargo, volvoFH16}, 22, 0, minsk, grodno);
-        System.out.println("Самый быстрый: ");
-        System.out.println(bestTransports[0]);
-        System.out.println();
-        System.out.println("Самый дешёвый: ");
-        System.out.println(bestTransports[1]);
+        Transport[] transports = {boeing737Cargo, boeing747Cargo, boeing737Passenger, boeing747Passenger, volvoFH16};
+
+        boolean run = true;
+        String option = "";
+        while (run){
+            int number = 1;
+            for (City city : cities){
+                System.out.println(number + ") " + city.getName());
+                number++;
+            }
+            System.out.println();
+            System.out.print("Введите номер города отправления: ");
+            number = scanner.nextInt();
+            City departureCity = cities[number - 1];
+            System.out.print("Введите номер города доставки: ");
+            number = scanner.nextInt();
+            City arrivalCity = cities[number - 1];
+            System.out.print("Введите вес груза: ");
+            double load = scanner.nextDouble();
+            System.out.print("Введите количество пассажиров: ");
+            int passengers = scanner.nextInt();
+            System.out.println();
+
+
+            Transport[] bestTransports = Services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
+            System.out.println("Самый быстрый: ");
+            System.out.println(bestTransports[0]);
+            System.out.println();
+            System.out.println("Самый дешёвый: ");
+            System.out.println(bestTransports[1]);
+
+            //выход
+            System.out.print("Введите '0' для выхода: ");
+            option = scanner.next();
+            if (option.equals("0")){
+                run = false;
+            }
+        }
     }
 }

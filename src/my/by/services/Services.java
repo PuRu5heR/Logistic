@@ -8,8 +8,12 @@ public class Services {
         Transport[] checked = new Transport[transports.length];
         int i = 0;
         for (Transport transport : transports){
-            if (transport.getLoadCapacity() >= load){
-                checked[i] = transport;
+            try{
+                if (transport.getLoadCapacity() >= load){
+                    checked[i] = transport;
+                }
+            }catch(NullPointerException e){
+                continue;
             }
             i++;
         }
@@ -19,8 +23,12 @@ public class Services {
     public static Transport checkPrice(Transport[] transports){                           //нахождения дешёвого варианта
         Transport lowestPrice = transports[0];
         for (Transport transport : transports){
-            if (transport.getTransportationPrice() < lowestPrice.getTransportationPrice()){
-                lowestPrice = transport;
+            try{
+                if (transport.getTransportationPrice() < lowestPrice.getTransportationPrice()){
+                    lowestPrice = transport;
+                }
+            }
+            catch(NullPointerException ignored){
             }
         }
         return lowestPrice;
@@ -34,19 +42,27 @@ public class Services {
         }
         if (distanceCount(departureCity, arrivalCity) <= 250){
             for (int i = 0; i < transports.length; i++){
-                if (transports[i].getAir()){
-                    none[i] = i;
-                    continue;
+                try{
+                    if (transports[i].getAir()){
+                        none[i] = i;
+                        continue;
+                    }
+                    fastest = transports[i];
                 }
-                fastest = transports[i];
+                catch (NullPointerException ignored){
+                }
             }
         }
         for (int i = 0; i < transports.length; i++){
             if (i == none[i]){
                 continue;
             }
-            if (transports[i].getSpeed() > fastest.getSpeed()){
-                fastest = transports[i];
+            try{
+                if (transports[i].getSpeed() > fastest.getSpeed()){
+                    fastest = transports[i];
+                }
+            }
+            catch(NullPointerException ignored){
             }
         }
         return fastest;
@@ -56,8 +72,12 @@ public class Services {
         Transport[] checked = new Transport[transports.length];
         int i = 0;
         for (Transport transport : transports){
-            if (transport.getPassengers() >= passengers){
-                checked[i] = transport;
+            try{
+                if (transport.getPassengers() >= passengers){
+                    checked[i] = transport;
+                }
+            }catch(NullPointerException e){
+                continue;
             }
             i++;
         }
@@ -76,6 +96,8 @@ public class Services {
         Transport[] checkedPassengers = checkPassengers(checkedLoad, passengers);
         Transport fastestTransport = checkSpeed(checkedPassengers, departureCity, arrivalCity);
         Transport cheapestTransport = checkPrice(checkedPassengers);
+        System.out.println(Math.round(distanceCount(departureCity, arrivalCity)) + "km");
+        System.out.println();
         return new Transport[]{fastestTransport, cheapestTransport};
     }
 }
