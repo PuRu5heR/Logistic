@@ -86,8 +86,8 @@ public class Services {
 
     public static double distanceCount(City departureCity, City arrivalCity){
         double kmToDegree = 111.134861111;
-        return Math.sqrt(Math.abs(departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition()) +
-                Math.abs(departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition())) * kmToDegree;
+        return Math.sqrt(Math.pow(departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition(), 2) +
+                Math.pow(departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition(), 2)) * kmToDegree;
     }
 
     public static Transport[] findingBestTransport(Transport[] transports, double load, int passengers,
