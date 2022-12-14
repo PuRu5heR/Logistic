@@ -85,7 +85,7 @@ public class Services {
     }
 
     public static double distanceCount(City departureCity, City arrivalCity){
-        double kmToDegree = 111.134861111;
+        double kmToDegree = 65.654630176;
         return Math.sqrt(Math.pow(departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition(), 2) +
                 Math.pow(departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition(), 2)) * kmToDegree;
     }
