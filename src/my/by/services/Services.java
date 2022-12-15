@@ -21,7 +21,15 @@ public class Services {
     }
 
     public static Transport checkPrice(Transport[] transports){                           //нахождения дешёвого варианта
-        Transport lowestPrice = transports[0];
+        Transport lowestPrice = null;
+        for (Transport transport : transports){
+            if (transport != null){
+                lowestPrice = transport;
+            }
+        }
+        if (lowestPrice == null){
+            return null;
+        }
         for (Transport transport : transports){
             try{
                 if (transport.getTransportationPrice() < lowestPrice.getTransportationPrice()){
@@ -34,13 +42,21 @@ public class Services {
         return lowestPrice;
     }
 
-    public static Transport checkSpeed(Transport[] transports, City departureCity, City arrivalCity){                           //нахождение быстрого варианта
-        Transport fastest = transports[0];
+    public static Transport checkSpeed(Transport[] transports, City departureCity, City arrivalCity){      //нахождение быстрого варианта
+        Transport fastest = null;
+        for (Transport transport : transports){
+            if (transport != null){
+                fastest = transport;
+            }
+        }
+        if (fastest == null){
+            return null;
+        }
         int[] none = new int[transports.length];
         for (int i = 0; i < transports.length; i++){
             none[i] = -1;
         }
-        if (distanceCount(departureCity, arrivalCity) <= 250){
+        if (distanceCount(departureCity, arrivalCity) <= 150){
             for (int i = 0; i < transports.length; i++){
                 try{
                     if (transports[i].getAir()){
@@ -68,6 +84,28 @@ public class Services {
         return fastest;
     }
 
+    public static Transport[] checkPorts(Transport[] transports, City departureCity, City arrivalCity){
+        Transport[] checked = new Transport[transports.length];
+        int i = 0;
+        for (Transport transport : transports){
+            try{
+                if(transport.getAir() && departureCity.getHasAirport() && arrivalCity.getHasAirport()){
+                    checked[i] = transport;
+                }
+                else if(transport.getWater() && departureCity.getHasPort() && arrivalCity.getHasPort()){
+                    checked[i] = transport;
+                }
+                else if(transport.getGround()){
+                    checked[i] = transport;
+                }
+            }
+            catch (NullPointerException ignored){
+            }
+            i++;
+        }
+        return checked;
+    }
+
     public static Transport[] checkPassengers(Transport[] transports, int passengers){   //проверка на вместимость пассажиров
         Transport[] checked = new Transport[transports.length];
         int i = 0;
@@ -76,8 +114,8 @@ public class Services {
                 if (transport.getPassengers() >= passengers){
                     checked[i] = transport;
                 }
-            }catch(NullPointerException e){
-                continue;
+            }
+            catch(NullPointerException ignored){
             }
             i++;
         }
@@ -85,19 +123,19 @@ public class Services {
     }
 
     public static double distanceCount(City departureCity, City arrivalCity){
-        double kmToDegree = 111.134861111;
-        return Math.sqrt(Math.pow(departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition(), 2) +
-                Math.pow(departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition(), 2)) * kmToDegree;
+        double kmToDegreeLatitude = 111.1348611111111;
+        double kmToDegreeLongitude = 90 - ((departureCity.getLatitudePosition() + arrivalCity.getLatitudePosition() / 2) * 1.92);
+        return Math.sqrt(Math.pow((departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition()) * kmToDegreeLatitude, 2) +
+                Math.pow((departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition()) * kmToDegreeLongitude, 2));
     }
 
     public static Transport[] findingBestTransport(Transport[] transports, double load, int passengers,
                                                    City departureCity, City arrivalCity){  //нахождение лучших вариантов для перевозки
         Transport[] checkedLoad = checkLoadCapacity(transports, load);
         Transport[] checkedPassengers = checkPassengers(checkedLoad, passengers);
-        Transport fastestTransport = checkSpeed(checkedPassengers, departureCity, arrivalCity);
-        Transport cheapestTransport = checkPrice(checkedPassengers);
-        System.out.println(Math.round(distanceCount(departureCity, arrivalCity)) + "km");
-        System.out.println();
+        Transport[] checkedPorts = checkPorts(checkedPassengers, departureCity, arrivalCity);
+        Transport fastestTransport = checkSpeed(checkedPorts, departureCity, arrivalCity);
+        Transport cheapestTransport = checkPrice(checkedPorts);
         return new Transport[]{fastestTransport, cheapestTransport};
     }
 }

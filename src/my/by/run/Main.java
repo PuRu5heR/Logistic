@@ -8,12 +8,14 @@ import my.by.services.Services;
 
 import java.util.Scanner;
 
+import static my.by.services.Services.distanceCount;
+
 public class Main {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
 
         //белорусские города
-        City minsk = new City("Минск", true, false, 53.9, 27.5667);
+        City minsk = new City("Минск", false, false, 53.9, 27.5667);
         City vitebsk = new City("Витебск", true, false, 55.1904, 30.2049);
         City gomel = new City("Гомель", true, false, 52.4345, 30.9754);
         City mogilev = new City("Могилёв", true, false, 53.9168, 30.3449);
@@ -48,7 +50,7 @@ public class Main {
         Transport[] transports = {boeing737Cargo, boeing747Cargo, boeing737Passenger, boeing747Passenger, volvoFH16};
 
         boolean run = true;
-        String option = "";
+        String option;
         while (run){
             int number = 1;
             for (City city : cities){
@@ -68,13 +70,25 @@ public class Main {
             int passengers = scanner.nextInt();
             System.out.println();
 
-
-            Transport[] bestTransports = Services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
-            System.out.println("Самый быстрый: ");
-            System.out.println(bestTransports[0]);
+            System.out.println("Расстояние: " + Math.round(distanceCount(departureCity, arrivalCity)) + "km");
             System.out.println();
-            System.out.println("Самый дешёвый: ");
-            System.out.println(bestTransports[1]);
+            Transport[] bestTransports = Services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
+            if (bestTransports[0] == bestTransports[1]){
+                System.out.println("Самый быстрый и дешёвый: ");
+                System.out.println(bestTransports[0]);
+                System.out.println();
+            }
+            else if (bestTransports[0] != null){
+                System.out.println("Самый быстрый: ");
+                System.out.println(bestTransports[0]);
+                System.out.println();
+                System.out.println("Самый дешёвый: ");
+                System.out.println(bestTransports[1]);
+                System.out.println();
+            }
+            else{
+                System.out.println("Нету подходящего транспорта\n");
+            }
 
             //выход
             System.out.print("Введите '0' для выхода: ");
