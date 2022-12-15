@@ -83,7 +83,7 @@ public class Main {
             System.out.println("Расстояние: " + Math.round(distanceCount(departureCity, arrivalCity)) + "км");
             System.out.println();
             Transport[] bestTransports = Services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
-            if (bestTransports[0] == bestTransports[1]){
+            if (bestTransports[0] == bestTransports[1] && bestTransports[0] != null){
                 System.out.println("1) Самый быстрый и дешёвый: ");
                 System.out.println(bestTransports[0]);
                 System.out.println();
@@ -102,22 +102,24 @@ public class Main {
             }
 
             while (choosingTransport){
+                choosingTransport = false;
                 System.out.print("Введите номер транспорта, который хотите выбрать (0 - отмена): ");
                 try{
                     int pick = scanner.nextInt();
+                    if (pick == 0){
+                        continue;
+                    }
                     for (Transport transport : transports) {
                         if (bestTransports[pick - 1] == transport) {
                             transport.setUsingSpace(transport.getUsingSpace() + load);
                             transport.setUsingSeats(transport.getUsingSeats() + passengers);
-                            choosingTransport = false;
                             break;
                         }
                     }
                 }
-                catch (Exception ignored){
-                }
-                if (choosingTransport){
+                catch (Exception e){
                     System.out.println("Неверно введён номер транспорта");
+                    choosingTransport = true;
                 }
             }
 
