@@ -6,11 +6,14 @@ public class Transport {
     private double transportationPrice;   //цена транспортировки за км в долларах
     private double speed;                 //скорость км/ч
     private int passengers;            //максимальное количество пассажиров
-    private boolean isAir;
+    private boolean isAir = false;
     private boolean isWater;
     private boolean isGround;
+    private double usingSpace;
+    private int usingSeats;
 
-    public Transport(String name, double loadCapacity, double transportationPrice, double speed, int passengers) {
+    public Transport(String name, double loadCapacity, double transportationPrice,
+                     double speed, int passengers) {
         this.name = name;
         this.loadCapacity = loadCapacity;
         this.transportationPrice = transportationPrice;
@@ -19,6 +22,8 @@ public class Transport {
         this.isAir = false;
         this.isWater = false;
         this.isGround = false;
+        this.usingSpace = 0;
+        this.usingSeats = 0;
     }
 
     public void setLoadCapacity(double loadCapacity) {
@@ -55,11 +60,15 @@ public class Transport {
 
     @Override
     public String toString() {
-        return "Name: " + name +
-                "\nMax load capacity = " + loadCapacity +
-                "\nPrice of transportation = " + transportationPrice +
-                "\nMax speed = " + speed +
-                "\nMax amount of passengers = " + passengers;
+        return "Название: " + name +
+                "\nМаксимальная грузоподъёмность: " + loadCapacity + " т" +
+                "\nЦена транспортировки: " + transportationPrice + " $/км" +
+                "\nМаксимальная скорость: " + speed + " км/ч" +
+                "\nМаксимальное количество пассажиров: " + passengers +
+                "\nЗанято места: " + usingSpace + " т" +
+                "\nСвободно места: " + (loadCapacity - usingSpace) + " т" +
+                "\nЗанято мест пассажиров: " + usingSeats +
+                "\nСвободно мест пассажиров: " + (passengers - usingSeats);
     }
 
     public void setName(String name) {
@@ -91,5 +100,21 @@ public class Transport {
 
     public void setGround(boolean ground) {
         isGround = ground;
+    }
+
+    public double getUsingSpace() {
+        return usingSpace;
+    }
+
+    public void setUsingSpace(double usingSpace) {
+        this.usingSpace = usingSpace;
+    }
+
+    public int getUsingSeats() {
+        return usingSeats;
+    }
+
+    public void setUsingSeats(int usingSeats) {
+        this.usingSeats = usingSeats;
     }
 }

@@ -8,6 +8,8 @@ import my.by.services.Services;
 
 import java.util.Scanner;
 
+import static my.by.services.Services.distanceCount;
+
 public class Main {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
@@ -50,31 +52,74 @@ public class Main {
         boolean run = true;
         String option;
         while (run){
+            boolean choosingTransport = true;
             int number = 1;
             for (City city : cities){
                 System.out.println(number + ") " + city.getName());
                 number++;
             }
             System.out.println();
-            System.out.print("Введите номер города отправления: ");
-            number = scanner.nextInt();
-            City departureCity = cities[number - 1];
-            System.out.print("Введите номер города доставки: ");
-            number = scanner.nextInt();
-            City arrivalCity = cities[number - 1];
-            System.out.print("Введите вес груза: ");
-            double load = scanner.nextDouble();
-            System.out.print("Введите количество пассажиров: ");
-            int passengers = scanner.nextInt();
+            City departureCity;
+            City arrivalCity;
+            double load;
+            int passengers;
+            try{
+                System.out.print("Введите номер города отправления: ");
+                number = scanner.nextInt();
+                departureCity = cities[number - 1];
+                System.out.print("Введите номер города доставки: ");
+                number = scanner.nextInt();
+                arrivalCity = cities[number - 1];
+                System.out.print("Введите вес груза: ");
+                load = scanner.nextDouble();
+                System.out.print("Введите количество пассажиров: ");
+                passengers = scanner.nextInt();
+                System.out.println();
+            }
+            catch (Exception e){
+                continue;
+            }
+
+            System.out.println("Расстояние: " + Math.round(distanceCount(departureCity, arrivalCity)) + "км");
             System.out.println();
-
-
             Transport[] bestTransports = Services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
-            System.out.println("Самый быстрый: ");
-            System.out.println(bestTransports[0]);
-            System.out.println();
-            System.out.println("Самый дешёвый: ");
-            System.out.println(bestTransports[1]);
+            if (bestTransports[0] == bestTransports[1]){
+                System.out.println("1) Самый быстрый и дешёвый: ");
+                System.out.println(bestTransports[0]);
+                System.out.println();
+            }
+            else if (bestTransports[0] != null){
+                System.out.println("1) Самый быстрый: ");
+                System.out.println(bestTransports[0]);
+                System.out.println();
+                System.out.println("2) Самый дешёвый: ");
+                System.out.println(bestTransports[1]);
+                System.out.println();
+            }
+            else{
+                System.out.println("Нету подходящего транспорта\n");
+                choosingTransport = false;
+            }
+
+            while (choosingTransport){
+                System.out.print("Введите номер транспорта, который хотите выбрать (0 - отмена): ");
+                try{
+                    int pick = scanner.nextInt();
+                    for (Transport transport : transports) {
+                        if (bestTransports[pick - 1] == transport) {
+                            transport.setUsingSpace(transport.getUsingSpace() + load);
+                            transport.setUsingSeats(transport.getUsingSeats() + passengers);
+                            choosingTransport = false;
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ignored){
+                }
+                if (choosingTransport){
+                    System.out.println("Неверно введён номер транспорта");
+                }
+            }
 
             //выход
             System.out.print("Введите '0' для выхода: ");
