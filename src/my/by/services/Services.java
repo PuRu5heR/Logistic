@@ -3,7 +3,7 @@ package my.by.services;
 import my.by.city.City;
 import my.by.transport.Transport;
 
-public class Services {
+public class Services implements IService{
     public static Transport[] checkLoadCapacity(Transport[] transports, double load){     //проверка на грузоподъёмность
         Transport[] checked = new Transport[transports.length];
         int i = 0;
@@ -12,7 +12,8 @@ public class Services {
                 if (transport.getLoadCapacity() - transport.getUsingSpace() >= load){
                     checked[i] = transport;
                 }
-            }catch(NullPointerException e){
+            }
+            catch(NullPointerException e){
                 continue;
             }
             i++;

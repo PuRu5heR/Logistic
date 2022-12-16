@@ -57,10 +57,10 @@ public class City {
 
     @Override
     public String toString() {
-        return "Name of city: " + name +
-                "\nHas airport = " + hasAirport +
-                "\nHas port = " + hasPort +
-                "\nLatitude position = " + latitudePosition +
-                "\nLongitude position = " + longitudePosition;
+        return "Название города: " + name +
+                "\nНаличие аэропорта = " + hasAirport +
+                "\nНаличие порта = " + hasPort +
+                "\nШирота = " + latitudePosition +
+                "\nДолгота = " + longitudePosition;
     }
 }

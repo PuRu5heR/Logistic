@@ -1,6 +1,6 @@
 package my.by.transport;
 
-public class Transport {
+public class Transport implements ITransport{
     private String name;                  //название транспорта
     private double loadCapacity;          //грузоподъёмность в тоннах
     private double transportationPrice;   //цена транспортировки за км в долларах
@@ -116,5 +116,18 @@ public class Transport {
 
     public void setUsingSeats(int usingSeats) {
         this.usingSeats = usingSeats;
+    }
+
+    @Override
+    public void print(){
+        System.out.print("Название: " + name +
+                "\nМаксимальная грузоподъёмность: " + loadCapacity + " т" +
+                "\nЦена транспортировки: " + transportationPrice + " $/км" +
+                "\nМаксимальная скорость: " + speed + " км/ч" +
+                "\nМаксимальное количество пассажиров: " + passengers +
+                "\nЗанято места: " + usingSpace + " т" +
+                "\nСвободно места: " + (loadCapacity - usingSpace) + " т" +
+                "\nЗанято мест пассажиров: " + usingSeats +
+                "\nСвободно мест пассажиров: " + (passengers - usingSeats));
     }
 }

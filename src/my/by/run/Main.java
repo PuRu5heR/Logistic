@@ -50,7 +50,7 @@ public class Main {
         Transport[] transports = {boeing737Cargo, boeing747Cargo, boeing737Passenger, boeing747Passenger, volvoFH16};
 
         boolean run = true;
-        String option;
+        String option;   //
         while (run){
             boolean choosingTransport = true;
             int number = 1;
