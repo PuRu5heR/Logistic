@@ -58,22 +58,10 @@ public class Transport implements ITransport{
         return loadCapacity;
     }
 
-    @Override
-    public String toString() {
-        return "Название: " + name +
-                "\nМаксимальная грузоподъёмность: " + loadCapacity + " т" +
-                "\nЦена транспортировки: " + transportationPrice + " $/км" +
-                "\nМаксимальная скорость: " + speed + " км/ч" +
-                "\nМаксимальное количество пассажиров: " + passengers +
-                "\nЗанято места: " + usingSpace + " т" +
-                "\nСвободно места: " + (loadCapacity - usingSpace) + " т" +
-                "\nЗанято мест пассажиров: " + usingSeats +
-                "\nСвободно мест пассажиров: " + (passengers - usingSeats);
-    }
-
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
@@ -118,8 +106,9 @@ public class Transport implements ITransport{
         this.usingSeats = usingSeats;
     }
 
+
     @Override
-    public void print(){
+    public void print() {
         System.out.print("Название: " + name +
                 "\nМаксимальная грузоподъёмность: " + loadCapacity + " т" +
                 "\nЦена транспортировки: " + transportationPrice + " $/км" +

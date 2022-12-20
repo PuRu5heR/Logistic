@@ -5,14 +5,13 @@ import my.by.transport.Air.Airplane;
 import my.by.transport.Ground.Track;
 import my.by.transport.Transport;
 import my.by.services.Services;
-
 import java.util.Scanner;
-
-import static my.by.services.Services.distanceCount;
 
 public class Main {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
+
+        Services services = new Services();
 
         //белорусские города
         City minsk = new City("Минск", true, false, 53.9, 27.5667);
@@ -80,9 +79,9 @@ public class Main {
                 continue;
             }
 
-            System.out.println("Расстояние: " + Math.round(distanceCount(departureCity, arrivalCity)) + "км");
+            System.out.println("Расстояние: " + Math.round(services.distanceCount(departureCity, arrivalCity)) + "км");
             System.out.println();
-            Transport[] bestTransports = Services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
+            Transport[] bestTransports = services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
             if (bestTransports[0] == bestTransports[1] && bestTransports[0] != null){
                 System.out.println("1) Самый быстрый и дешёвый: ");
                 System.out.println(bestTransports[0]);

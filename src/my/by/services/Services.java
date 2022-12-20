@@ -4,7 +4,7 @@ import my.by.city.City;
 import my.by.transport.Transport;
 
 public class Services implements IService{
-    public static Transport[] checkLoadCapacity(Transport[] transports, double load){     //проверка на грузоподъёмность
+    public Transport[] checkLoadCapacity(Transport[] transports, double load){     //проверка на грузоподъёмность
         Transport[] checked = new Transport[transports.length];
         int i = 0;
         for (Transport transport : transports){
@@ -21,7 +21,7 @@ public class Services implements IService{
         return checked;
     }
 
-    public static Transport checkPrice(Transport[] transports){                           //нахождения дешёвого варианта
+    public Transport checkPrice(Transport[] transports){                           //нахождения дешёвого варианта
         Transport lowestPrice = null;
         for (Transport transport : transports){
             if (transport != null){
@@ -43,7 +43,7 @@ public class Services implements IService{
         return lowestPrice;
     }
 
-    public static Transport checkSpeed(Transport[] transports, City departureCity, City arrivalCity){      //нахождение быстрого варианта
+    public Transport checkSpeed(Transport[] transports, City departureCity, City arrivalCity){      //нахождение быстрого варианта
         Transport fastest = null;
         for (Transport transport : transports){
             if (transport != null){
@@ -85,7 +85,7 @@ public class Services implements IService{
         return fastest;
     }
 
-    public static Transport[] checkPorts(Transport[] transports, City departureCity, City arrivalCity){
+    public Transport[] checkPorts(Transport[] transports, City departureCity, City arrivalCity){
         Transport[] checked = new Transport[transports.length];
         int i = 0;
         for (Transport transport : transports){
@@ -107,7 +107,7 @@ public class Services implements IService{
         return checked;
     }
 
-    public static Transport[] checkPassengers(Transport[] transports, int passengers){   //проверка на вместимость пассажиров
+    public Transport[] checkPassengers(Transport[] transports, int passengers){   //проверка на вместимость пассажиров
         Transport[] checked = new Transport[transports.length];
         int i = 0;
         for (Transport transport : transports){
@@ -123,14 +123,14 @@ public class Services implements IService{
         return checked;
     }
 
-    public static double distanceCount(City departureCity, City arrivalCity){
+    public double distanceCount(City departureCity, City arrivalCity){
         double kmToDegreeLatitude = 111.1348611111111;
         double kmToDegreeLongitude = 90 - ((departureCity.getLatitudePosition() + arrivalCity.getLatitudePosition() / 2) * 1.92);
         return Math.sqrt(Math.pow((departureCity.getLatitudePosition() - arrivalCity.getLatitudePosition()) * kmToDegreeLatitude, 2) +
                 Math.pow((departureCity.getLongitudePosition() - arrivalCity.getLongitudePosition()) * kmToDegreeLongitude, 2));
     }
 
-    public static Transport[] findingBestTransport(Transport[] transports, double load, int passengers,
+    public  Transport[] findingBestTransport(Transport[] transports, double load, int passengers,
                                                    City departureCity, City arrivalCity){  //нахождение лучших вариантов для перевозки
         Transport[] checkedLoad = checkLoadCapacity(transports, load);
         Transport[] checkedPassengers = checkPassengers(checkedLoad, passengers);
