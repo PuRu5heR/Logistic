@@ -84,15 +84,15 @@ public class Main {
             Transport[] bestTransports = services.findingBestTransport(transports, load, passengers, departureCity, arrivalCity);
             if (bestTransports[0] == bestTransports[1] && bestTransports[0] != null){
                 System.out.println("1) Самый быстрый и дешёвый: ");
-                System.out.println(bestTransports[0]);
+                bestTransports[0].print();
                 System.out.println();
             }
             else if (bestTransports[0] != null){
                 System.out.println("1) Самый быстрый: ");
-                System.out.println(bestTransports[0]);
+                bestTransports[0].print();
                 System.out.println();
                 System.out.println("2) Самый дешёвый: ");
-                System.out.println(bestTransports[1]);
+                bestTransports[1].print();
                 System.out.println();
             }
             else{

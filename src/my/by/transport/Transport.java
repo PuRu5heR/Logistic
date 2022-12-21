@@ -109,7 +109,7 @@ public class Transport implements ITransport{
 
     @Override
     public void print() {
-        System.out.print("Название: " + name +
+        System.out.println("Название: " + name +
                 "\nМаксимальная грузоподъёмность: " + loadCapacity + " т" +
                 "\nЦена транспортировки: " + transportationPrice + " $/км" +
                 "\nМаксимальная скорость: " + speed + " км/ч" +

@@ -1,6 +1,6 @@
 package my.by.city;
 
-public class City {
+public class City implements ICity{
     private String name;
     private boolean hasAirport;                  //наличие аэропорта
     private boolean hasPort;                     //наличие порта
@@ -56,11 +56,11 @@ public class City {
     }
 
     @Override
-    public String toString() {
-        return "Название города: " + name +
+    public void print() {
+        System.out.println("Название города: " + name +
                 "\nНаличие аэропорта = " + hasAirport +
                 "\nНаличие порта = " + hasPort +
                 "\nШирота = " + latitudePosition +
-                "\nДолгота = " + longitudePosition;
+                "\nДолгота = " + longitudePosition);
     }
 }
